@@ -1,74 +1,140 @@
 <!DOCTYPE html>
 <html lang="id">
 <head>
-    <meta charset="UTF-8">
-    <title>QRFile Share – Transfer Lokal via QR</title>
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <!-- Bootstrap 5 -->
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
-    <!-- Google Fonts -->
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap" rel="stylesheet">
-    <style>
-        body {
-            font-family: 'Inter', sans-serif;
-            background: linear-gradient(to right, #f0f4f8, #ffffff);
-            padding-top: 60px;
-        }
-        .container {
-            max-width: 600px;
-        }
-        .card {
-            border: none;
-            border-radius: 20px;
-            box-shadow: 0 8px 20px rgba(0,0,0,0.05);
-        }
-        .qrcode img {
-            width: 100%;
-            max-width: 260px;
-            border-radius: 12px;
-        }
-        .btn-primary {
-            background-color: #1d72b8;
-            border: none;
-        }
-        .btn-primary:hover {
-            background-color: #155d8b;
-        }
-        footer {
-            margin-top: 60px;
-            color: #777;
-        }
-    </style>
+  <meta charset="UTF-8">
+  <title>QRFile Share – Transfer Lokal via QR</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap" rel="stylesheet">
+
+  <style>
+    body {
+      font-family: 'Inter', sans-serif;
+      background: linear-gradient(to right, #f0f4f8, #ffffff);
+      padding-top: 60px;
+    }
+    .container {
+      max-width: 600px;
+    }
+    .card {
+      border: none;
+      border-radius: 20px;
+      box-shadow: 0 8px 20px rgba(0,0,0,0.05);
+    }
+    .qrcode img {
+      width: 100%;
+      max-width: 260px;
+      border-radius: 12px;
+    }
+    .btn-primary {
+      background-color: #1d72b8;
+      border: none;
+    }
+    .btn-primary:hover {
+      background-color: #155d8b;
+    }
+    footer {
+      margin-top: 60px;
+      color: #777;
+    }
+    .spinner {
+      display: none;
+      margin-top: 20px;
+    }
+    .spinner div {
+      width: 18px;
+      height: 18px;
+      background-color: #1d72b8;
+      border-radius: 100%;
+      display: inline-block;
+      animation: bouncedelay 1.4s infinite ease-in-out both;
+    }
+    .spinner .bounce1 {
+      animation-delay: -0.32s;
+    }
+    .spinner .bounce2 {
+      animation-delay: -0.16s;
+    }
+    @keyframes bouncedelay {
+      0%, 80%, 100% {
+        transform: scale(0);
+      }
+      40% {
+        transform: scale(1.0);
+      }
+    }
+  </style>
 </head>
 <body>
-    <div class="container text-center">
-        <h2 class="fw-bold mb-4">📁 QRFile Share</h2>
+  <div class="container text-center">
+    <h2 class="fw-bold mb-4">📁 QRFile Share</h2>
 
-        <div class="card p-4">
-            {% if error %}
-                <div class="alert alert-danger">{{ error }}</div>
-            {% endif %}
+    <div class="card p-4">
+      <form id="uploadForm" enctype="multipart/form-data">
+        <input class="form-control mb-3" type="file" name="file" required>
+        <button class="btn btn-primary w-100" type="submit">🚀 Upload & Generate QR</button>
+      </form>
 
-            <form method="POST" enctype="multipart/form-data" class="mb-3">
-                <input class="form-control mb-3" type="file" name="file" required>
-                <button class="btn btn-primary w-100" type="submit">🚀 Upload & Generate QR</button>
-            </form>
+      <!-- Spinner -->
+      <div class="spinner" id="spinner">
+        <div class="bounce1"></div>
+        <div class="bounce2"></div>
+        <div class="bounce3"></div>
+        <p class="mt-3 text-muted">Sedang membuat QR code... 📡</p>
+      </div>
 
-            {% if file_url %}
-                <div class="qrcode mt-4">
-                    <h5 class="fw-semibold">✅ Scan QR untuk langsung unduh</h5>
-                    <img src="{{ url_for('static', filename='qrcode.png') }}" alt="QR Code">
-                    <p class="mt-3">
-                        <a href="{{ file_url }}" class="btn btn-success" download>⬇️ Download Manual</a>
-                    </p>
-                    <p class="text-muted small">File: {{ filename }}</p>
-                </div>
-            {% endif %}
-        </div>
-
-        <footer class="text-center small mt-5">
-            Dibuat oleh <a href="https://github.com/zerquix" target="_blank">@zerquix</a> – QRFile Share © 2025
-        </footer>
+      <!-- Hasil -->
+      <div class="qrcode mt-4" id="result" style="display: none;">
+        <h5 class="fw-semibold">✅ Scan QR untuk langsung unduh</h5>
+        <img id="qrImage" src="" alt="QR Code">
+        <p class="mt-3">
+          <a id="downloadBtn" href="#" class="btn btn-success" download>⬇️ Download Manual</a>
+        </p>
+        <p class="text-muted small" id="fileNameLabel"></p>
+      </div>
     </div>
+
+    <footer class="text-center small mt-5">
+      Dibuat oleh <a href="https://github.com/zerquix" target="_blank">@zerquix</a> – QRFile Share © 2025
+    </footer>
+  </div>
+
+  <script>
+    const form = document.getElementById('uploadForm');
+    const spinner = document.getElementById('spinner');
+    const result = document.getElementById('result');
+    const qrImage = document.getElementById('qrImage');
+    const downloadBtn = document.getElementById('downloadBtn');
+    const fileNameLabel = document.getElementById('fileNameLabel');
+
+    form.addEventListener('submit', async function (e) {
+      e.preventDefault();
+      spinner.style.display = 'block';
+      result.style.display = 'none';
+
+      const formData = new FormData(form);
+
+      try {
+        const response = await fetch('/upload', {
+          method: 'POST',
+          body: formData
+        });
+
+        if (!response.ok) throw new Error('Gagal upload');
+
+        const data = await response.json();
+
+        qrImage.src = data.qr_url + '?_t=' + Date.now(); // Bypass cache
+        downloadBtn.href = data.download_url;
+        fileNameLabel.textContent = 'File: ' + data.filename;
+
+        result.style.display = 'block';
+      } catch (err) {
+        alert('❌ Upload gagal. Pastikan file valid.');
+      } finally {
+        spinner.style.display = 'none';
+      }
+    });
+  </script>
 </body>
 </html>
