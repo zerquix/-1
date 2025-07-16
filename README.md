@@ -93,7 +93,7 @@ HTML + CSS sederhana (tanpa Bootstrap, tanpa JavaScript berat)
 
 ## 🛡️ Lisensi
 
-Proyek ini dirilis di bawah lisensi MIT. Silakan digunakan.
+© 2025 Zerquix. Dirilis di bawah lisensi GNU GPL v3. Dilarang menghapus atribusi atau mengklaim sebagai pembuat.
 
 ---
 
