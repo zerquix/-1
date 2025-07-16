@@ -8,19 +8,19 @@
 <body>
   <div class="container">
     <h1>📤 QRFile Share</h1>
-    <p>Kirim file lokal antar perangkat via QR Code. Tanpa cloud, tanpa login.</p>
+    <p>Kirim file lokal via jaringan Wi-Fi ke HP lewat QR Code.</p>
 
-    <form id="uploadForm">
+    <form id="uploadForm" method="POST" enctype="multipart/form-data">
       <input type="file" name="file" required>
-      <button type="submit">Unggah & Generate QR</button>
+      <button type="submit">Unggah & Buat QR</button>
     </form>
 
-    <div id="loading" class="hidden">⏳ Uploading...</div>
+    <div id="loading" class="hidden">⏳ Uploading lucu...</div>
 
     <div id="result" class="hidden">
       <h2>✅ QR Code Siap</h2>
-      <img id="qrImage" src="" alt="QR Code">
-      <p><a id="downloadLink" href="#" download>📥 Klik di sini jika QR tidak bisa</a></p>
+      <img id="qrImage" src="" alt="QR Code" width="200">
+      <p><a id="downloadLink" href="#" download>📥 Klik di sini jika QR gagal</a></p>
     </div>
 
     <footer>
@@ -35,34 +35,34 @@
     const qrImage = document.getElementById('qrImage');
     const downloadLink = document.getElementById('downloadLink');
 
-    form.addEventListener('submit', function(e) {
+    form.addEventListener('submit', function (e) {
       e.preventDefault();
-      const fileInput = form.querySelector('input[type="file"]');
-      if (!fileInput.files.length) return;
+      const file = form.querySelector('input[type="file"]').files[0];
+      if (!file) return;
+
+      const formData = new FormData();
+      formData.append('file', file);
 
       loading.classList.remove('hidden');
       result.classList.add('hidden');
-
-      const formData = new FormData();
-      formData.append('file', fileInput.files[0]);
 
       fetch('/upload', {
         method: 'POST',
         body: formData
       })
-      .then(res => res.json())
-      .then(data => {
-        qrImage.src = data.qr_url + '?v=' + new Date().getTime(); // prevent cache
-        downloadLink.href = data.download_url;
-        result.classList.remove('hidden');
-      })
-      .catch(err => {
-        alert("Upload gagal: " + err);
-      })
-      .finally(() => {
-        loading.classList.add('hidden');
-        form.reset();
-      });
+        .then(res => res.json())
+        .then(data => {
+          qrImage.src = data.qr_url;
+          downloadLink.href = data.download_url;
+          result.classList.remove('hidden');
+        })
+        .catch(err => {
+          alert('Upload gagal.');
+        })
+        .finally(() => {
+          loading.classList.add('hidden');
+          form.reset();
+        });
     });
   </script>
 </body>
