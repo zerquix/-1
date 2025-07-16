@@ -18,12 +18,13 @@ Tanpa akun, tanpa instalasi aplikasi tambahan.
 
 ## 🚀 Cara Menjalankan
 
-1. **Clone repository:**
+## 1. **Clone repository:**
    ```bash
    git clone https://github.com/zerquix/qrfile-share.git
    cd qrfile-share
-
+```
 ## 2. (Opsional) Buat virtual environment:
+
 ``` bash
 python3 -m venv venv
 source venv/bin/activate  # Linux/macOS
