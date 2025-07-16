@@ -8,62 +8,26 @@
 <body>
   <div class="container">
     <h1>📤 QRFile Share</h1>
-    <p>Kirim file lokal via jaringan Wi-Fi ke HP lewat QR Code.</p>
+    <p>Kirim file lokal ke HP lewat QR Code (tanpa cloud).</p>
 
-    <form id="uploadForm" method="POST" enctype="multipart/form-data">
+    <form method="POST" action="{{ url_for('upload') }}" enctype="multipart/form-data" target="upload_target">
       <input type="file" name="file" required>
-      <button type="submit">Unggah & Buat QR</button>
+      <button type="submit">Unggah File</button>
     </form>
 
-    <div id="loading" class="hidden">⏳ Uploading lucu...</div>
+    <iframe name="upload_target" style="display:none;"></iframe>
 
-    <div id="result" class="hidden">
-      <h2>✅ QR Code Siap</h2>
-      <img id="qrImage" src="" alt="QR Code" width="200">
-      <p><a id="downloadLink" href="#" download>📥 Klik di sini jika QR gagal</a></p>
+    {% if qr %}
+    <div id="result">
+      <h2>✅ Scan QR ini:</h2>
+      <img src="{{ qr }}" width="200" alt="QR Code">
+      <p><a href="{{ download_url }}">📥 Link Unduh Manual</a></p>
     </div>
+    {% endif %}
 
     <footer>
       <p>© 2025 <a href="https://github.com/zerquix/qrfile-share" target="_blank">zerquix</a></p>
     </footer>
   </div>
-
-  <script>
-    const form = document.getElementById('uploadForm');
-    const loading = document.getElementById('loading');
-    const result = document.getElementById('result');
-    const qrImage = document.getElementById('qrImage');
-    const downloadLink = document.getElementById('downloadLink');
-
-    form.addEventListener('submit', function (e) {
-      e.preventDefault();
-      const file = form.querySelector('input[type="file"]').files[0];
-      if (!file) return;
-
-      const formData = new FormData();
-      formData.append('file', file);
-
-      loading.classList.remove('hidden');
-      result.classList.add('hidden');
-
-      fetch('/upload', {
-        method: 'POST',
-        body: formData
-      })
-        .then(res => res.json())
-        .then(data => {
-          qrImage.src = data.qr_url;
-          downloadLink.href = data.download_url;
-          result.classList.remove('hidden');
-        })
-        .catch(err => {
-          alert('Upload gagal.');
-        })
-        .finally(() => {
-          loading.classList.add('hidden');
-          form.reset();
-        });
-    });
-  </script>
 </body>
 </html>
