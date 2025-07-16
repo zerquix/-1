@@ -1,14 +1,14 @@
 import os
 import time
 import threading
-from flask import Flask, request, send_file, jsonify, render_template, url_for, abort
+from flask import Flask, request, send_file, render_template, url_for, redirect, abort
 from werkzeug.utils import secure_filename
 import qrcode
 
 app = Flask(__name__)
 UPLOAD_FOLDER = 'uploads'
-QR_IMAGE = os.path.join('static', 'qrcode.png')
-FILE_EXPIRY_SECONDS = 600  # 10 menit
+QR_PATH = os.path.join('static', 'qrcode.png')
+FILE_EXPIRY_SECONDS = 600
 
 app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
 os.makedirs(UPLOAD_FOLDER, exist_ok=True)
@@ -18,30 +18,26 @@ file_registry = {}
 
 @app.route('/')
 def index():
-    return render_template('index.html')
+    return render_template('index.html', qr=None, download_url=None)
 
 @app.route('/upload', methods=['POST'])
 def upload():
-    if 'file' not in request.files:
-        return jsonify({'error': 'No file uploaded'}), 400
-
-    file = request.files['file']
-    if file.filename == '':
-        return jsonify({'error': 'Empty filename'}), 400
+    file = request.files.get('file')
+    if not file or file.filename == '':
+        return redirect(url_for('index'))
 
     filename = secure_filename(file.filename)
-    filepath = os.path.join(app.config['UPLOAD_FOLDER'], filename)
+    filepath = os.path.join(UPLOAD_FOLDER, filename)
     file.save(filepath)
     file_registry[filename] = time.time()
 
     download_url = url_for('download_file', filename=filename, _external=True)
     qr = qrcode.make(download_url)
-    qr.save(QR_IMAGE)
+    qr.save(QR_PATH)
 
-    return jsonify({
-        'qr_url': url_for('static', filename='qrcode.png') + f'?t={int(time.time())}',
-        'download_url': download_url
-    })
+    return render_template('index.html',
+                           qr=url_for('static', filename='qrcode.png') + f"?t={int(time.time())}",
+                           download_url=download_url)
 
 @app.route('/download/<filename>')
 def download_file(filename):
@@ -68,8 +64,7 @@ def auto_cleanup():
     while True:
         now = time.time()
         for filename in list(file_registry.keys()):
-            created = file_registry[filename]
-            if now - created > FILE_EXPIRY_SECONDS:
+            if now - file_registry[filename] > FILE_EXPIRY_SECONDS:
                 try:
                     os.remove(os.path.join(UPLOAD_FOLDER, filename))
                 except:
