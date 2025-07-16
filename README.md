@@ -23,36 +23,36 @@ Tanpa akun, tanpa instalasi aplikasi tambahan.
    git clone https://github.com/zerquix/qrfile-share.git
    cd qrfile-share
 
-##2. (Opsional) Buat virtual environment:
+## 2. (Opsional) Buat virtual environment:
 ``` bash
 python3 -m venv venv
 source venv/bin/activate  # Linux/macOS
 venv\Scripts\activate     # Windows
 ```
 
-##3. Install dependency:
+## 3. Install dependency:
 ```
 pip install -r requirements.txt
 
 ```
-##4. Jalankan server lokal:
+## 4. Jalankan server lokal:
 ```
 python app.py
 
 ```
-##5. Akses di browser:
-
+## 5. Akses di browser:
+```
 http://localhost:8000
 
 atau dari perangkat lain: http://192.168.x.x:8000 (IP lokal)
-
+```
 
 
 
 
 ---
 
-🗂️ Struktur Folder
+# 🗂️ Struktur Folder
 
 qrfile-share/
 ├── app.py                   # Backend utama (Flask)
@@ -67,7 +67,7 @@ qrfile-share/
 
 ---
 
-⚙️ Pengaturan Opsional
+# ⚙️ Pengaturan Opsional
 
 Durasi penyimpanan file bisa diubah di app.py:
 
@@ -83,7 +83,7 @@ ngrok http 8000
 
 ---
 
-##📦 ##Teknologi Digunakan
+## 📦 Teknologi Digunakan
 
 Python 3
 
@@ -97,14 +97,14 @@ HTML + CSS sederhana (tanpa Bootstrap, tanpa JavaScript berat)
 
 ---
 
-##🛡️ ##Lisensi
+## 🛡️ Lisensi
 
 Proyek ini dirilis di bawah lisensi MIT. Silakan digunakan dan dimodifikasi.
 
 
 ---
 
-##🤝 ##Kontribusi
+## 🤝 Kontribusi
 
 Pull request terbuka untuk fitur seperti:
 
@@ -120,12 +120,12 @@ QR dengan expiry time embed
 
 ---
 
-##📸 Demo
+## 📸 Demo
 
 <img src="static/qrcode.png" alt="QR Code Example" width="200">
 ---
 
-##🔗 Repo & Kontak
+## 🔗 Repo & Kontak
 
 GitHub: github.com/zerquix/qrfile-share
 
