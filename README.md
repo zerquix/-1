@@ -93,18 +93,7 @@ HTML + CSS sederhana (tanpa Bootstrap, tanpa JavaScript berat)
 
 ## 🛡️ Lisensi
 
-Proyek ini dirilis di bawah lisensi MIT. Silakan digunakan dan dimodifikasi.
-
-
----
-
-## 🤝 Kontribusi
-
-Pull request terbuka untuk fitur seperti:
-CLI uploader
-Dockerfile
-Password download
-QR dengan expiry time embed
+Proyek ini dirilis di bawah lisensi MIT. Silakan digunakan.
 
 ---
 
