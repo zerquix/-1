@@ -53,7 +53,7 @@ atau dari perangkat lain: http://192.168.x.x:8000 (IP lokal)
 ---
 
 # 🗂️ Struktur Folder
-
+```
 qrfile-share/
 ├── app.py                   # Backend utama (Flask)
 ├── templates/
@@ -63,7 +63,7 @@ qrfile-share/
 ├── uploads/                 # Folder penyimpanan file
 ├── requirements.txt         # Daftar dependensi
 └── README.md                # Dokumentasi ini
-
+```
 
 ---
 
