@@ -1,33 +1,67 @@
 <!DOCTYPE html>
 <html lang="id">
 <head>
-  <meta charset="UTF-8">
-  <title>QRFile Share – by zerquix</title>
-  <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>QRFile Share</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
 </head>
 <body>
-  <div class="container">
-    <h1>📤 QRFile Share</h1>
-    <p>Kirim file lokal ke HP lewat QR Code (tanpa cloud).</p>
+    <div class="container">
+        <header>
+            <h1>📤 QRFile Share</h1>
+            <p>Kirim file lokal ke HP lewat QR Code</p>
+        </header>
 
-    <form method="POST" action="{{ url_for('upload') }}" enctype="multipart/form-data" target="upload_target">
-      <input type="file" name="file" required>
-      <button type="submit">Unggah File</button>
-    </form>
+        <main>
+            <form id="uploadForm" enctype="multipart/form-data">
+                <div class="upload-area" id="uploadArea">
+                    <input type="file" id="fileInput" name="file" hidden>
+                    <div class="upload-content">
+                        <span class="upload-icon">📁</span>
+                        <span class="upload-text">Pilih file atau drag & drop</span>
+                        <span class="upload-subtext">Maksimal 50MB</span>
+                    </div>
+                </div>
+                <button type="submit" id="uploadBtn" disabled>Unggah File</button>
+            </form>
 
-    <iframe name="upload_target" style="display:none;"></iframe>
+            <div id="loading" class="loading hidden">
+                <div class="spinner"></div>
+                <p>Sedang mengunggah...</p>
+            </div>
 
-    {% if qr %}
-    <div id="result">
-      <h2>✅ Scan QR ini:</h2>
-      <img src="{{ qr }}" width="200" alt="QR Code">
-      <p><a href="{{ download_url }}">📥 Link Unduh Manual</a></p>
+            <div id="result" class="result hidden">
+                <h2>✅ File berhasil diunggah!</h2>
+                <div class="qr-container">
+                    <img id="qrCode" src="" alt="QR Code">
+                </div>
+                <div class="file-info">
+                    <p><strong id="fileName"></strong></p>
+                    <p class="file-size" id="fileSize"></p>
+                </div>
+                <div class="actions">
+                    <a id="downloadLink" href="" target="_blank" class="btn btn-secondary">
+                        📥 Download Manual
+                    </a>
+                    <button id="newFileBtn" class="btn btn-primary">
+                        📤 Kirim File Lain
+                    </button>
+                </div>
+            </div>
+
+            <div id="error" class="error hidden">
+                <h2>❌ Terjadi kesalahan</h2>
+                <p id="errorMessage"></p>
+                <button id="retryBtn" class="btn btn-primary">Coba Lagi</button>
+            </div>
+        </main>
+
+        <footer>
+            <p>© 2025 <a href="https://github.com/zerquix/qrfile-share" target="_blank">zerquix</a></p>
+        </footer>
     </div>
-    {% endif %}
 
-    <footer>
-      <p>© 2025 <a href="https://github.com/zerquix/qrfile-share" target="_blank">zerquix</a></p>
-    </footer>
-  </div>
+    <script src="{{ url_for('static', filename='script.js') }}"></script>
 </body>
 </html>
