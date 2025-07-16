@@ -75,9 +75,7 @@ FILE_EXPIRY_SECONDS = 600  # default: 10 menit
 
 Download otomatis hapus file: aktif secara default
 
-Untuk akses dari luar jaringan lokal, gunakan:
-
-ngrok http 8000
+Untuk akses dari luar jaringan lokal, gunakan: ngrok http 8000
 
 
 
@@ -86,13 +84,9 @@ ngrok http 8000
 ## 📦 Teknologi Digunakan
 
 Python 3
-
 Flask
-
 qrcode (dengan Pillow)
-
 HTML + CSS sederhana (tanpa Bootstrap, tanpa JavaScript berat)
-
 
 
 ---
@@ -107,22 +101,11 @@ Proyek ini dirilis di bawah lisensi MIT. Silakan digunakan dan dimodifikasi.
 ## 🤝 Kontribusi
 
 Pull request terbuka untuk fitur seperti:
-
 CLI uploader
-
 Dockerfile
-
 Password download
-
 QR dengan expiry time embed
 
-
-
----
-
-## 📸 Demo
-
-<img src="static/qrcode.png" alt="QR Code Example" width="200">
 ---
 
 ## 🔗 Repo & Kontak
