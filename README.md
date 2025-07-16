@@ -18,34 +18,34 @@ Tanpa akun, tanpa instalasi aplikasi tambahan.
 
 ## 🚀 Cara Menjalankan
 
-1. **Clone repository:**
+##1. **Clone repository:**
    ```bash
    git clone https://github.com/zerquix/qrfile-share.git
    cd qrfile-share
 
-2. (Opsional) Buat virtual environment:
-
+##2. (Opsional) Buat virtual environment:
+```
 python3 -m venv venv
 source venv/bin/activate  # Linux/macOS
 venv\Scripts\activate     # Windows
+```
 
-
-3. Install dependency:
-
+##3. Install dependency:
+```
 pip install -r requirements.txt
+```
 
-
-4. Jalankan server lokal:
-
+##4. Jalankan server lokal:
+```
 python app.py
+```
 
-
-5. Akses di browser:
-
+##5. Akses di browser:
+```
 http://localhost:8000
 
 atau dari perangkat lain: http://192.168.x.x:8000 (IP lokal)
-
+```
 
 
 
