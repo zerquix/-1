@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>File Transfer via QR</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <style>
+        body {
+            font-family: sans-serif;
+            max-width: 600px;
+            margin: auto;
+            padding: 20px;
+        }
+        .qr {
+            margin-top: 20px;
+            text-align: center;
+        }
+        .download-link {
+            text-align: center;
+            margin-top: 10px;
+        }
+    </style>
+</head>
+<body>
+    <h2>Upload File untuk Transfer via QR Code</h2>
+    <form method="post" enctype="multipart/form-data">
+        <input type="file" name="file" required>
+        <button type="submit">Upload</button>
+    </form>
+
+    {% if qr_url %}
+        <div class="qr">
+            <p>Scan QR Code di HP untuk mengunduh file:</p>
+            <img src="{{ qr_url }}" alt="QR Code">
+        </div>
+        <div class="download-link">
+            <p><a href="{{ download_url }}">Atau klik di sini untuk unduh langsung</a></p>
+        </div>
+    {% endif %}
+</body>
+</html>
