@@ -1,118 +1,140 @@
-# QRFile Share â€“ Transfer File Lokal via QR Code ðŸ“±ðŸ’»
+Berikut adalah isi README.md dalam Markdown murni, siap langsung Anda salin ke repo GitHub Anda https://github.com/zerquix/qrfile-share:
+
+# QRFile Share – Transfer File Lokal via QR Code 📱💻
 
 Aplikasi web sederhana untuk transfer file dari laptop ke HP (dan sebaliknya) melalui jaringan lokal **tanpa cloud**, cukup dengan **scan QR Code**.  
 Tanpa akun, tanpa instalasi aplikasi tambahan.
 
 ---
 
-## ðŸ”§ Fitur Utama
+## 🔧 Fitur Utama
 
-- ðŸ“¤ Upload file dari browser desktop
-- ðŸ“± Scan QR Code dari kamera HP untuk download langsung
-- ðŸŒ Berjalan di jaringan lokal (misalnya Wi-Fi rumah)
-- ðŸ•’ File otomatis terhapus setelah satu kali download atau 10 menit
-- ðŸ§± Antarmuka minimalis dan responsif
-- âŒ Tanpa login, tanpa database, tanpa JavaScript berlebihan
+- 📤 Upload file dari browser desktop
+- 📱 Scan QR Code dari kamera HP untuk download langsung
+- 🌐 Berjalan di jaringan lokal (misalnya Wi-Fi rumah)
+- 🕒 File otomatis terhapus setelah satu kali download atau 10 menit
+- 🧱 Antarmuka minimalis dan responsif
+- ❌ Tanpa login, tanpa database, tanpa JavaScript berlebihan
 
 ---
 
-## ðŸš€ Cara Menjalankan
+## 🚀 Cara Menjalankan
 
 1. **Clone repository:**
    ```bash
    git clone https://github.com/zerquix/qrfile-share.git
    cd qrfile-share
-   ```
 
-2. **(Opsional) Buat virtual environment:**
-   ```bash
-   python3 -m venv venv
-   source venv/bin/activate  # Linux/macOS
-   venv\Scriptsctivate     # Windows
-   ```
+##2. (Opsional) Buat virtual environment:
+``` bash
+python3 -m venv venv
+source venv/bin/activate  # Linux/macOS
+venv\Scripts\activate     # Windows
+```
 
-3. **Install dependency:**
-   ```bash
-   pip install -r requirements.txt
-   ```
+##3. Install dependency:
+```
+pip install -r requirements.txt
 
-4. **Jalankan server lokal:**
-   ```bash
-   python app.py
-   ```
+```
+##4. Jalankan server lokal:
+```
+python app.py
 
-5. **Akses di browser:**
-   - http://localhost:8000
-   - atau dari perangkat lain: `http://192.168.x.x:8000` (IP lokal)
+```
+##5. Akses di browser:
+
+http://localhost:8000
+
+atau dari perangkat lain: http://192.168.x.x:8000 (IP lokal)
+
+
+
+
 
 ---
 
-## ðŸ—‚ï¸ Struktur Folder
+🗂️ Struktur Folder
 
-```
 qrfile-share/
-â”œâ”€â”€ app.py                   # Backend utama (Flask)
-â”œâ”€â”€ templates/
-â”‚   â””â”€â”€ index.html           # Halaman upload & QR
-â”œâ”€â”€ static/
-â”‚   â””â”€â”€ qrcode.png           # Hasil QR Code
-â”œâ”€â”€ uploads/                 # Folder penyimpanan file
-â”œâ”€â”€ requirements.txt         # Daftar dependensi
-â””â”€â”€ README.md                # Dokumentasi ini
-```
+├── app.py                   # Backend utama (Flask)
+├── templates/
+│   └── index.html           # Halaman upload & QR
+├── static/
+│   └── qrcode.png           # Hasil QR Code
+├── uploads/                 # Folder penyimpanan file
+├── requirements.txt         # Daftar dependensi
+└── README.md                # Dokumentasi ini
+
 
 ---
 
-## âš™ï¸ Pengaturan Opsional
+⚙️ Pengaturan Opsional
 
-- Durasi penyimpanan file bisa diubah di `app.py`:
-  ```python
-  FILE_EXPIRY_SECONDS = 600  # default: 10 menit
-  ```
-- Download otomatis hapus file: aktif secara default
-- Untuk akses dari luar jaringan lokal, gunakan:
-  ```bash
-  ngrok http 8000
-  ```
+Durasi penyimpanan file bisa diubah di app.py:
 
----
+FILE_EXPIRY_SECONDS = 600  # default: 10 menit
 
-## ðŸ“¦ Teknologi Digunakan
+Download otomatis hapus file: aktif secara default
 
-- Python 3
-- Flask
-- qrcode (dengan Pillow)
-- HTML + CSS sederhana (tanpa Bootstrap, tanpa JavaScript berat)
+Untuk akses dari luar jaringan lokal, gunakan:
+
+ngrok http 8000
+
+
 
 ---
 
-## ðŸ›¡ï¸ Lisensi
+##📦 ##Teknologi Digunakan
+
+Python 3
+
+Flask
+
+qrcode (dengan Pillow)
+
+HTML + CSS sederhana (tanpa Bootstrap, tanpa JavaScript berat)
+
+
+
+---
+
+##🛡️ ##Lisensi
 
 Proyek ini dirilis di bawah lisensi MIT. Silakan digunakan dan dimodifikasi.
 
+
 ---
 
-## ðŸ¤ Kontribusi
+##🤝 ##Kontribusi
 
 Pull request terbuka untuk fitur seperti:
-- CLI uploader
-- Dockerfile
-- Password download
-- QR dengan expiry time embed
+
+CLI uploader
+
+Dockerfile
+
+Password download
+
+QR dengan expiry time embed
+
+
 
 ---
 
-## ðŸ“¸ Demo
+##📸 Demo
 
 <img src="static/qrcode.png" alt="QR Code Example" width="200">
-
 ---
 
-## ðŸ”— Repo & Kontak
+##🔗 Repo & Kontak
 
-GitHub: [github.com/zerquix/qrfile-share](https://github.com/zerquix/qrfile-share)  
+GitHub: github.com/zerquix/qrfile-share
+
 Buka Issue jika ada pertanyaan, bug, atau saran pengembangan.
+
 
 ---
 
 > Aplikasi ini dirancang untuk digunakan secara lokal tanpa ketergantungan pada cloud atau akun login.
+
