@@ -1,5 +1,3 @@
-Berikut adalah isi README.md dalam Markdown murni, siap langsung Anda salin ke repo GitHub Anda https://github.com/zerquix/qrfile-share:
-
 # QRFile Share – Transfer File Lokal via QR Code 📱💻
 
 Aplikasi web sederhana untuk transfer file dari laptop ke HP (dan sebaliknya) melalui jaringan lokal **tanpa cloud**, cukup dengan **scan QR Code**.  
